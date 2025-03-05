@@ -1,0 +1,19 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nginx
+  # to create pod in the namespace we created instead of default namespace
+  namespace: expense
+spec:
+  # one pod can contain multiple containers
+  containers:
+  - name: nginx
+    image: nginx
+
+
+# kubectl apply -f 02-pod.yaml
+# kubectl get pods -- to get the list of pods
+# kubectl get pods -n <namespace> -- to get the list of pods in namespace
+# kubectl get pods -n expense 
+
+# kubectl exec -it nginx -- bash  # To connect to pod

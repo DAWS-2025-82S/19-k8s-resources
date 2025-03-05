@@ -1,0 +1,21 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: labels
+  labels:
+    project: expense
+    component: backend
+    environment: dev
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    
+# kubectl apply -f 04-labels.yaml
+# labels are used to provide metadata and can be used to attach other resources
+
+# annotations are similar to labels 
+# labels can be used to select internal resources 
+# annotations can be used to select external resources
+# also in annotations we can give special characters and used in ingress controller
+# special characters cannot be used in labels
