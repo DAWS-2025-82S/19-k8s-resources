@@ -1,0 +1,20 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-config
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    envFrom:
+    - configMapRef:
+        name: myconfig
+
+
+#  Referring ConfigMap to set as env variables
+
+#  kubectl apply -f 09-pod-config.yaml
+
+#  kubectl exec -it pod-config -- bash  
+
+#  env      

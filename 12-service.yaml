@@ -1,0 +1,59 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx
+spec:
+  selector: # labels are used as selectors
+    project: expense
+    component: backend
+    environment: dev
+    version: "1.0.0"
+  ports:
+  - protocol: TCP
+    port: 80 # service port
+    targetPort: 80  #container port
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: backend
+  labels:
+    project: expense
+    component: backend
+    environment: dev
+    version: "1.0.0"
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+
+# kubectl delete pods --all --all-namespaces   -- to delete all pods
+
+# kubectl apply -f 12-service.yaml
+
+# kubectl get svc --- to get service info -- gives cluster IP
+
+# kubectl get pod -o wide -- to get pod ip
+
+# start other container to check service access from other container
+
+# kubectl apply -f 03-multicontainer.yaml
+
+# kubectl exec -it multi-containers -- bash
+
+# then curl <servicename>
+
+# curl nginx
+
+# apt install dnsutils -y
+
+# nslookup nginx
+
+# multi-container --> curl nginx --> 
+# 3 types of services
+# 1. cluster IP --> default, only works internally i.e., pod to pod
+# 2. NodePort --> external requests
+# 3. LoadBalancer --> only works with cloud providers. here service open classic LB.
+
+# clusterip will not work in internet, works only in kubernetes
+# Node port works from internet

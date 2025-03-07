@@ -1,0 +1,47 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-np
+spec:
+  type: NodePort
+  selector: # labels are used as selectors
+    project: expense
+    component: backend
+    environment: dev
+    version: "1.0.0"
+    demo: np
+  ports:
+  - protocol: TCP
+    port: 80 # service port
+    targetPort: 80 # container port
+    nodePort: 30007 # node port to  access from internet
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: backend-np
+  labels:
+    project: expense
+    component: backend
+    environment: dev
+    version: "1.0.0"
+    demo: np
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+
+# kubectl apply -f 13-node-port.yaml
+
+# clusterip will not work in internet, works only in kubernetes i.e., only works internally 
+# i.e., pod to pod
+
+# Node port works from internet
+# Node port automatically creates cluster IP and creates new node port
+
+# kubectl get svc --- to get service info -- gives cluster IP and also node port
+
+# kubectl get pod -o wide -- to get pod ip and also the node where pod is running
+
+# check the private ip address of node from aws ui
+# copy  the node public ip address and access with node port from browser(open port in security group)
