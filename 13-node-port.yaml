@@ -45,3 +45,16 @@ spec:
 
 # check the private ip address of node from aws ui
 # copy  the node public ip address and access with node port from browser(open port in security group)
+
+# If we acess the node port with any node ip it will work 
+# because kubernetes will send the request to the correct pod
+
+# In NodePort type
+# when user send request with public ip(any instance/node public IP) ip:nodeport
+# then kubernetes will forward the request to cluster ip service
+# then cluster ip service will forward the request to the pod
+# When we open port in security group Kubernetes will open node port on all instances(nodes) 
+# so we the url will work with any instance ip and node port
+
+# test with url
+# http:<AnyInstancePublicIP>:<NodePort>

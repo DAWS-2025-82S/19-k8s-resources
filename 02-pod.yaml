@@ -17,3 +17,6 @@ spec:
 # kubectl get pods -n expense 
 
 # kubectl exec -it nginx -- bash  # To connect to pod
+
+# To connect pod in expense namespace
+# kubectl exec -it nginx -n expense -- bash

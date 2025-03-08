@@ -18,3 +18,11 @@ spec:
 #  kubectl exec -it pod-config -- bash  
 
 #  env      
+
+#  Update config map data and restart pod
+# kubectl apply -f 08-config-map.yaml
+
+#  kubectl delete -f 09-pod-config.yaml
+#  kubectl apply -f 09-pod-config.yaml
+#  kubectl exec -it pod-config -- bash  
+#  env

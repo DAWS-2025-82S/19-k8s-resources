@@ -19,7 +19,7 @@ spec:
 # kubectl pod describe <pod-name>  -- to get the details of pod like which container is failing  in a pod
 
 # # If one container failed we need to delete the pod and create it again
-# kubectl delete -f 03-multicontainer.yaml   
+# kubectl delete -f 03-multi-container.yaml   
 
 # kubectl exec -it <pod-name> -- bash
 

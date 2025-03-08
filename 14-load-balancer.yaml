@@ -31,3 +31,18 @@ spec:
   - name: nginx
     image: nginx
     
+# kubectl delete -f 13-node-port.yaml
+
+# kubectl apply -f 14-load-balancer.yaml
+
+
+# In Load Balancer type
+# request will come from user to Load balancer on port 80 
+# then LB will forward to node port to any one of the instances(nodes) in the cluster
+# then from any one of the instances(node) request goes to cluster ip
+# then finally request will be sent from cluster ip to the pod
+
+# test with url
+# http:<LB_DNS_Name>:<NodePort>
+
+# create Route53 record for LB DNS name with domain name to access the url with domain name
