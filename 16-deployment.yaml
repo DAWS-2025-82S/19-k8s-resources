@@ -40,3 +40,8 @@ spec:
 # change the image name from nginx:1.14.2 to nginx:latest
 
 # kubectl apply -f 16-deployment.yaml
+
+# to verify image is updated check
+
+# kubectl describe pods
+

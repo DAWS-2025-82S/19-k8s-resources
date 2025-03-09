@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: dath1/deployment:1.0
+        image: dath1/deployment:2.0
         ports:
         - containerPort: 80
 ---
@@ -33,7 +33,7 @@ metadata:
   name: nginx
 spec:
   type: LoadBalancer
-  selector: # labels are used as selectors
+  selector: # pod labels are used as selectors
     app: nginx
     tier: frontend
     purpose: deployment
@@ -54,6 +54,8 @@ spec:
 # kubectl get rs or kubectl get replicaset
 
 # kubectl get pods
+
+# Test with url http://<LB_DNS_NAME>:80
 
 # To verify the replicaset updates the pods with another image version
 # change the image name from 1.0 to 2.0
