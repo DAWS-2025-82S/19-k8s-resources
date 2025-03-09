@@ -63,3 +63,14 @@ spec:
 # kubectl apply -f 16-deployment.yaml
 
 # Test with url http://<LB_DNS_NAME>:80
+
+# Commands to check deployment status and rollback
+# -------------------------------------------------
+# kubectl rollout history deployment/nginx  -- to check the deployment history
+# kubectl rollout history deployment/nginx --revision=2  -- to check revision 2 history
+
+# kubectl rollout undo deployment/nginx --> roll back to immidiate previous version
+# kubectl rollout undo deployment/nginx --to-revision=2 ---> roll back to specific verison
+
+# kubectl get deployment nginx   -- to check the deployment status
+# kubectl rollout status deployment/nginx  -- to check the deployment status
