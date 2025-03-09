@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: joindevops/deployment:1.0
+        image: dath1/deployment:1.0
         ports:
         - containerPort: 80
 ---
@@ -43,8 +43,21 @@ spec:
     targetPort: 80
     nodePort: 30007
 
-# kubectl apply -f 17-deployment-servie.yaml
+# build the image from DEPLOYMENT folder
+
+# kubectl apply -f 17-deployment-service.yaml
 
 # kubectl get svc
+
+# kubectl get deployment
+
+# kubectl get rs or kubectl get replicaset
+
+# kubectl get pods
+
+# To verify the replicaset updates the pods with another image version
+# change the image name from 1.0 to 2.0
+
+# kubectl apply -f 16-deployment.yaml
 
 # Test with url http://<LB_DNS_NAME>:80

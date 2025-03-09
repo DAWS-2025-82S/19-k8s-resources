@@ -6,7 +6,7 @@ COPY index.html /usr/share/nginx/html/index.html
 
 # docker push dath1/deployment:1.0
 
-# then run the 17-deployment-service.yaml to tets the deployment
+# then run the 17-deployment-service.yaml to test the deployment
 
 # Test with url http://<LB_DNS_NAME>:80
 
