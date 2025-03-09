@@ -43,6 +43,9 @@ spec:
 # then finally request will be sent from cluster ip to the pod
 
 # test with url
-# http:<LB_DNS_Name>:<NodePort>
+# http:<LB_DNS_Name>:80
 
 # create Route53 record for LB DNS name with domain name to access the url with domain name
+
+# For NodePort type NodePort should be added in security group for the url to work
+# For LoadBalancer type no need to open any port
