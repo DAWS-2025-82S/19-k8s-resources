@@ -25,7 +25,26 @@ spec:
       - name: nginx
         image: nginx:stable-perl
 
-# Instead of creatng multiple pods manually by chngaing pod name we can use replicaset 
+# Instead of creatng multiple pods manually by changing pod name we can use replicaset 
 
 # kubectl get pods -A
+
 # kubectl apply -f 15-replica-set.yaml
+
+# kubectl get replicaset
+
+# kubectl get pods -o wide
+
+# watch kubectl get pods # in new terminal
+
+# if we delete one pod, replicateset will automatically creates new pod
+
+# If we run 02-pod.yaml again with same image nothing will change
+# If we change image name and run 02-pod.yaml file image will be updated
+
+# check the image with below command
+# kubectl describe pod nginx -n expense
+
+# If image is changed in replicaset with another version ,replicaset will not update the image
+
+# To achieve this we need to use deployment
