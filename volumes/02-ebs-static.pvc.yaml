@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-static
+spec:
+  storageClassName: "" # Empty string must be explicitly set otherwise default StorageClass will be set
+  # PV name in pv.yaml
+  volumeName: ebs-static
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ebs-static
+  labels:
+    purpose: "ebs-static-demo"
+spec:
+  # to tell the scheduler to create pod in which node
+  nodeSelector:
+    topology.kubernetes.io/zone: us-east-1b
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: persistent-storage
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: persistent-storage
+    persistentVolumeClaim:
+      claimName: ebs-static
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-lb
+spec:
+  type: LoadBalancer
+  selector: # labels are used as selectors
+    purpose: "ebs-static-demo"
+  ports:
+  - protocol: TCP
+    port: 80 # service port
+    targetPort: 80
+    nodePort: 30007
+
+# create PVC  -- to claim the volume
+
+# kubectl apply -f 02-ebs-static-pvc.yaml
+
+# kubectl get pvc
+
+# all the files/data of pod stored in /usr/share/nginx/html will be stored in volume
+
+# kubectl get pods
+
+# kubectl get nodes --show-labels  ----> to get nodeSelector label
+
+
+# if pod schedules(created) in 1a and volume is in 1b, pod status will be in pending for continuously.
+
+# scheduler(nodeSelector) --> schedules your pods on to appropriate nodes
+
+# kubectl apply -f 02-ebs-static-pvc.yaml
+
+# kubectl exec -it ebs-static -- bash
+# cd /usr/share/nginx/html
+# echo "<h1>Hello from EBS static</h1>" > index.html
+
+# check : http://<LB_DNS_NAAME>:80
+
+# Delete all resources(PV,PVC,pod,service)
+# kubectl delete -f 02-ebs-static-pvc.yaml
+# kubectl delete -f 01-ebs-static-pv.yaml
+
+# all resources got deleted but not volume and data
+# try recreate the pod and verify the data in volume is not deleted
+
+# kubectl apply -f 01-ebs-static-pv.yaml
+# kubectl apply -f 02-ebs-static-pvc.yaml
+
+# check : http://<LB_DNS_NAAME>:80
+

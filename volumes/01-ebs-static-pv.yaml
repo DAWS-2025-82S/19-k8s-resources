@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ebs-static
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 30Gi
+  csi:
+    driver: ebs.csi.aws.com
+    fsType: ext4
+    # provide the volume id created in EBS manually in AWS console
+    volumeHandle: vol-06237d8b3183eefc9
+
+# PV is wrapper object in kubernetes to represent physical volume like EBS or EFS
+
+# EBS static
+# ==========
+# 1.we have to create disk(volume) manually in same AZ as in worker nodes 
+# 2.drivers install(ebs csi driver) using kustomize
+# 	https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/docs/install.md
+	
+#   kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.40"
+	
+# 	kubectl get pods -n kube-system --  check the ebs csi drivers installed as pods	
+
+# 3.select the worker node security tabs
+# 	click on Iam roles
+# 	Add permission and Attach "AmazonEBSCSIDriverPolicy" to manage volumes
+
+# 4.Mount the volume to the pod using PV and PVC
+
+# kubectl apply -f 01-ebs-static-pv.yaml
+
+# kubectl get pv
+
