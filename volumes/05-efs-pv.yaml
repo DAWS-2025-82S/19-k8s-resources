@@ -12,7 +12,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-0bde995b741f0197b
+    volumeHandle: fs-04a9a18e30021fed3
 
 # EFS Static
 # ==========
@@ -26,7 +26,7 @@ spec:
 #     select the worker node security tabs
 # 	  click on Iam roles
 # 	  Add permission and Attach "AmazonEFSCSIDriverPolicy" to manage volumes
-# 3. create EFS
+# 3. create EFS and provide the ID in volumeHandle
 # 4. open port no 2049 on EFS to allow traffic from EC2 worker nodes
 # 5. create PV, PVC and POD
 

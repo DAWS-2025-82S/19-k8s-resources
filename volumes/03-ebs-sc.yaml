@@ -20,3 +20,5 @@ volumeBindingMode: WaitForFirstConsumer
 # kubectl apply -f 03-ebs-sc.yaml
 
 # kubectl get sc
+
+# kubectl api-resources

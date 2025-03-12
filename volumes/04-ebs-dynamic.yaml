@@ -46,7 +46,7 @@ spec:
 
 
 #  StorageClass should be empty for static provisionin(EBS Static)
-#  Provide StorageClass name for dynamic provisioning(EBD Dynamic)
+#  Provide StorageClass name for dynamic provisioning(EBS Dynamic)
 
 # https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/examples/kubernetes/dynamic-provisioning/manifests/storageclass.yaml
 
