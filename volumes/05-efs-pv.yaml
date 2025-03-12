@@ -28,6 +28,7 @@ spec:
 # 	  Add permission and Attach "AmazonEFSCSIDriverPolicy" to manage volumes
 # 3. create EFS and provide the ID in volumeHandle
 # 4. open port no 2049 on EFS to allow traffic from EC2 worker nodes
+# i.e., add worker node security group to EFS security inbound rules with NFS protocol
 # 5. create PV, PVC and POD
 
 # ex for PV

@@ -49,8 +49,18 @@ spec:
 
 #  kubectl get pods
 
-#  kubectl delete -f 06-efs-pvc.yaml
+# kubectl exec -it efs-static -- bash
+# cd /usr/share/nginx/html
+# echo "<h1>Hello from Static EFS Volume</h1>" > index.html
 
+# check : http://<LB_DNS_NAAME>:80
+
+#  kubectl delete -f 06-efs-pvc.yaml
 #  kubectl delete -f 05-efs-pv.yaml
+
+# Try creating again the data in EFS wiil be shown
+# kubectl apply -f 05-efs-pv.yaml
+#  kubectl apply -f 06-efs-pvc.yaml
+# check : http://<LB_DNS_NAAME>:80
 
 
