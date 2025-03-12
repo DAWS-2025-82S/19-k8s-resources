@@ -11,7 +11,7 @@ spec:
     driver: ebs.csi.aws.com
     fsType: ext4
     # provide the volume id created in EBS manually in AWS console
-    volumeHandle: vol-06237d8b3183eefc9
+    volumeHandle: vol-0a050571889075b83
 
 # PV is wrapper object in kubernetes to represent physical volume like EBS or EFS
 
@@ -34,4 +34,9 @@ spec:
 # kubectl apply -f 01-ebs-static-pv.yaml
 
 # kubectl get pv
+
+# Ex to create PV and PVC
+# https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/examples/kubernetes/static-provisioning/manifests/pv.yaml  -- for creating PV
+
+# https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/examples/kubernetes/static-provisioning/manifests/claim.yaml -- ex to create PVC
 

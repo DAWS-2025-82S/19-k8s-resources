@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-dynamic
+spec:
+  storageClassName: "ebs-sc" # Empty string must be explicitly set otherwise default StorageClass will be set
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 19Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ebs-dynamic
+  labels:
+    purpose: "ebs-dynamic-demo"
+spec:
+  nodeSelector:
+    topology.kubernetes.io/zone: us-east-1a
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: persistent-storage
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name: persistent-storage
+    persistentVolumeClaim:
+      claimName: ebs-dynamic
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-dynamic
+spec:
+  type: LoadBalancer
+  selector: # labels are used as selectors
+    purpose: "ebs-dynamic-demo"
+  ports:
+  - protocol: TCP
+    port: 80 # service port
+    targetPort: 80
+    nodePort: 30007
+
+
+#  StorageClass should be empty for static provisionin(EBS Static)
+#  Provide StorageClass name for dynamic provisioning(EBD Dynamic)
+
+# https://github.com/kubernetes-sigs/aws-ebs-csi-driver/blob/master/examples/kubernetes/dynamic-provisioning/manifests/storageclass.yaml
+
+# kubectl apply -f 04-ebs-dynamic.yaml
+
+# kubectl get pvc
+
+# kubectl get pv
+
+# kubectl get pods
+
+# kubectl get svc
+
+# check : http://<LB_DNS_NAME>:80   --- no output
+
+# kubectl exec -it ebs-dynamic -- bash
+# cd /usr/share/nginx/html
+# echo "<h1>Hello from Dynamic EBS Volume</h1>" > index.html
+
+# check : http://<LB_DNS_NAAME>:80
+
+# kubectl apply -f 04-ebs-dynamic.yaml
+
+# Volume will not delete we have to delete it manually

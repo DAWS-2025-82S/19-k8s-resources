@@ -49,3 +49,4 @@ spec:
 
 # For NodePort type NodePort should be added in security group for the url to work
 # For LoadBalancer type no need to open any port
+# For LB service type no need to mention node port and open in secuirty group
