@@ -63,6 +63,8 @@ spec:
 #  kubectl apply -f 08-efs-dynamic.yaml
 # check : http://<LB_DNS_NAAME>:80
 
+# For Dynamic EFS  access points will be created
+
 # data is not coming which is working static EFS -- need to cross check
 
 # Need to set retain policy so that access points will not get deleted

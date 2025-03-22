@@ -74,3 +74,14 @@ spec:
 
 # kubectl get deployment nginx   -- to check the deployment status
 # kubectl rollout status deployment/nginx  -- to check the deployment status
+
+
+# kubectl get pods -o wide 
+
+# kubectl exec -it podname -- bash
+
+# when you hit nslookup on service name, you will get ClusterIP as address
+
+# apt update -y
+# apt install dnsutils -y
+# nslookup nginx
