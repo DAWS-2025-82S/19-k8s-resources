@@ -1,0 +1,73 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: sa-demo
+  namespace: expense
+spec:
+  # one pod can contain multiple containers
+  serviceAccount: expense-mysql-secret
+  initContainers:
+  - name: awscli
+    image: amazon/aws-cli
+    command:  ['sh', '-c', 'aws secretsmanager get-secret-value --secret-id expense/mysql/creds --query SecretString --output text > /secrets/.env ']
+    volumeMounts:
+    - mountPath: /secrets
+      name: secret-volume
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: /secrets
+      name: secret-volume
+  volumes:
+  - name: secret-volume
+    emptyDir: {}
+
+
+# Kuberentes secrets are encoded but not encrypted
+# AWS secrets are encrypted
+
+# 1. make sure oidc provider exist
+# eksctl utils associate-iam-oidc-provider \
+#     --region us-east-1 \
+#     --cluster expense \
+#     --approve
+
+# 2. create secret and policy in AWS
+# 2a)create secret "expense/mysql/creds" in AWS with key value pair
+#    key		value
+#    ----------------
+#    username	admin
+#    password	admin123
+   
+# 2b)Create IAM policy "ExpenseMySQLSecretRead" with "SecretManager" service with read "GetSecretValue" Permission and 
+# give access to specific resource i.e., secret created
+
+# 	Edit ARN and provide below
+# 		Resource region
+# 		copy and paste ARN of secret created in ARN field
+# 		secret field will be automatically filled
+# 3. we need to map sa with IAM policy(Update with kubernetes namespace and policy arn created in aws in below command)
+# 	For internal resources create role and roldebinding for service account
+# 	For external resources access attach IAM policy to service account
+	
+# eksctl create iamserviceaccount \
+# --cluster=expense \
+# --namespace=expense \
+# --name=expense-mysql-secret \
+# --attach-policy-arn=arn:aws:iam::311141550186:policy/ExpenseMySQLSecretRead \
+# --override-existing-serviceaccounts \
+# --region us-east-1 \
+# --approve
+
+# this command will create IAM role with policy ExpenseMySQLSecretRead and integrate with EKS SA
+
+# kubectl get sa -n expense
+# kubectl describe sa expense-mysql-secret -n expense
+# kubectl get sa expense-mysql-secret -n expense -o yaml
+
+# kubectl apply -f 19-sa.yaml
+# kubectl get pods -n expense
+# kubectl exec -it sa-demo -n expense -- bash
+# cat /secrets/.env
+

@@ -96,7 +96,16 @@ spec:
 # For statefulset pods names will be unique not random because each pod in statefulset have seperate storage i.e., PV and PVC and
 # if a pod is deleted it will be recreated with same old name not random name so that new pod can attach to the same storage/volume again
 
+ 
+# kubectl delete -f volumes/03-ebs-sc.yaml
 # kubectl delete -f 18-statefulset.yaml
 
 # Statefulset requires normal service also for load balancing and  headless service  for clustering
 
+
+# If we delete the PV and PVC  with below command
+#   kubectl delete pv,pvc --all -A
+
+# New Volumes will be created again
+
+# If we delete only storage class and statefulset new volumes are not created in statfulset example

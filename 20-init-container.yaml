@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app.kubernetes.io/name: MyApp
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  initContainers:
+  - name: init-myservice
+    image: busybox:1.28
+    #command: ['sh', '-c', "until nslookup googfadfle.com; do echo waiting for myservice; sleep 10; done"]
+    command: ['sh', '-c', "for i in {1..10}; do sleep 10; if nslookup google.com; then exit 0; fi; done; exit 1"]
+
+
+
+# InitContainers are used for setup the requirements for pod, for example backend pod can check whether database connections working fine or not
+# InitContainers containers can fetch the secrets for pod before it starts
+
+# InitContainers are special containers run before main container runs, we can use them to make sure dependent services are running fine before our main application starts and fetch the secrets from secretmanager for main container. they always run to completion. you can run one or many init containers, they executed in sequence
+
+# InitContainers can do heavy lifting for main container so that main container is less in size and limit attack surface of main container by not installing more tools in it..
+
+# kubectl apply -f 20-init-container.yaml
