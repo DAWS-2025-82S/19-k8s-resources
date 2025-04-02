@@ -50,7 +50,7 @@ spec:
 # 3. we need to map sa with IAM policy(Update with kubernetes namespace and policy arn created in aws in below command)
 # 	For internal resources create role and roldebinding for service account
 # 	For external resources access attach IAM policy to service account
-	
+
 # eksctl create iamserviceaccount \
 # --cluster=expense \
 # --namespace=expense \
