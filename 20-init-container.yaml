@@ -24,3 +24,10 @@ spec:
 # InitContainers can do heavy lifting for main container so that main container is less in size and limit attack surface of main container by not installing more tools in it..
 
 # kubectl apply -f 20-init-container.yaml
+
+# verify the init container
+
+# kubectl get pods
+
+# kubectl describe pods myapp-pod
+

@@ -71,3 +71,10 @@ spec:
 # kubectl exec -it sa-demo -n expense -- bash
 # cat /secrets/.env
 
+
+# volumes --> external volumes --->EBS,EFS and configMap as volume
+
+# internal volumes --> emptyDir and hostPath
+
+# emptyDir --> pod temporary storage, accessible until pod lives. all containers in the pod can access
+# init container stores the secret in emptyDir and completes. then main container can acess this

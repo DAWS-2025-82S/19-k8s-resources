@@ -29,7 +29,7 @@ roleRef:
 kind: Pod
 apiVersion: v1
 metadata:
-  name: sa-demo
+  name: sa-demo-2
   namespace: expense
 spec:
   # one pod can contain multiple containers
@@ -50,3 +50,28 @@ spec:
   volumes:
   - name: secret-volume
     emptyDir: {}
+
+
+# To check the pods access running in default namespace from the pod in expense namespace 
+# after connecting to sa-demo pod created using 19-sa.yaml
+# -------------------------------------------------------------------------------------------------
+# kubectl exec -it sa-demo-2 -n expense -- bash
+# Install kubectl
+# ./kubectl get pods
+# ./kubectl get pods -n default
+# ./kubectl get secrets
+
+# you will get permission error, to access this again we need to use sa with role and rolebinding
+# exit the pod
+
+# Not only to users, role and rolebinding can be created for ServiceAccount also
+
+# kubectl get sa expense-mysql-secret -n expense -o yaml
+
+# Add role and role binding with Kind as ServiceAccount in 21-sa.yaml
+# kubectl apply -f 21-sa.yaml
+# kubectl exec -it sa-demo-2 -n expense -- bash
+# Install kubectl
+# ./kubectl get pods
+# ./kubectl get pods -n default
+# ./kubectl get secrets
