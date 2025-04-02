@@ -57,7 +57,11 @@ spec:
 # -------------------------------------------------------------------------------------------------
 # kubectl exec -it sa-demo-2 -n expense -- bash
 # Install kubectl
+# kubectl get pods
+# kubectl get pods -n default
+
 # kubectl get secrets
+# kubectl get secrets -n default
 
 # you will get permission error, to access this again we need to use sa with role and rolebinding
 # exit the pod
@@ -70,4 +74,8 @@ spec:
 # kubectl apply -f 21-sa.yaml
 # kubectl exec -it sa-demo-2 -n expense -- bash
 # Install kubectl
+# kubectl get pods
+# kubectl get pods -n default
+
 # kubectl get secrets
+# kubectl get secrets -n default
